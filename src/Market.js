@@ -8,6 +8,7 @@ function Marketplace({ contract, provider, signer, showNotification, setLoading 
     const [cards, setCards] = useState([]);
     const [selectedCard, setSelectedCard] = useState(null);
     const [price, setPrice] = useState(null);
+    const [sortOption, setSortOption] = useState('priceHighToLow');
 
     useEffect(() => {
         if (contract) {
@@ -15,9 +16,24 @@ function Marketplace({ contract, provider, signer, showNotification, setLoading 
         }
     }, [contract]);
 
+    const sortedCards = [...cards].sort((a, b) => {
+        switch (sortOption) {
+            case 'priceHighToLow':
+                return b.price - a.price;
+            case 'priceLowToHigh':
+                return a.price - b.price;
+            case 'recent':
+                return b.id - a.id;
+            case 'id':
+            default:
+                return a.id - b.id;
+        }
+    });
+
 
     const loadCards = async () => {
         const totalSupply = await contract.getTotalSupply();
+
         const fetchCardData = async (id) => {
             const tokenURI = await contract.tokenURI(id);
             const tokenData = JSON.parse(atob(tokenURI.split(",")[1]));
@@ -25,13 +41,16 @@ function Marketplace({ contract, provider, signer, showNotification, setLoading 
             const marketplaceContract = new ethers.Contract(marketplaceAddress, marketplaceABI, signer);
             const offer = await marketplaceContract.tokenIdToOffer(id);
             const isForSale = offer.isForSale;
+            const price = ethers.formatEther(offer.askingPrice);
             return {
                 id,
                 imageURI: tokenData.image,
                 svg: decodedSvg,
                 isForSale,
+                price: isForSale ? parseFloat(price) : 0,  // assuming that if a card is not for sale, its price is 0
             };
         };
+
 
 
         const cardDataPromises = [];
@@ -73,7 +92,7 @@ function Marketplace({ contract, provider, signer, showNotification, setLoading 
         const approveTx = await contract.approve(marketplaceAddress, tokenId);
         return approveTx;
     };
-    
+
 
     const selectCard = (card) => {
         console.log(card.id)
@@ -87,8 +106,16 @@ function Marketplace({ contract, provider, signer, showNotification, setLoading 
     return (
         <div className='marketCont'>
             <div>
+
+                <select className='sort' defaultValue="priceHighToLow" onChange={(e) => setSortOption(e.target.value)}>
+                    <option className='sortOpt' value="id">Oldest</option>
+                    <option className='sortOpt' value="recent">Newest</option>
+                    <option className='sortOpt' value="priceLowToHigh">Price (Low to High)</option>
+                    <option className='sortOpt' value="priceHighToLow">Price (High to Low)</option>
+                </select>
+
                 <div className="token-container">
-                    {cards.map((card) => (
+                    {sortedCards.map((card) => (
                         <div className="allImgs" key={card.id}>
                             <div
                                 className='images'

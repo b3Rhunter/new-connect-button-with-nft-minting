@@ -146,6 +146,20 @@ nav {
   text-align: center;
 }
 
+.sort {
+  padding: 0.5em 1em;
+  margin: 1em;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 7px;
+}
+
+.sortOpt {
+  margin-block: 0.5em;
+  color: black;
+}
+
 .sellBtn, .buyBtn {
   font-size: 1rem;
   margin: 5px;
