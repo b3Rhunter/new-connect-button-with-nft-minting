@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import ABI from './ABI.json';
 import Notification from './Notification';
 import Market from './Market';
+import logo from './images/pubs-market-high-resolution-logo-white-on-transparent-background.png';
 
 function App() {
 
@@ -182,7 +183,7 @@ function App() {
             {connected && (
               <section>
                 <nav>
-                  <h1>Pub's Market</h1>
+                  <img className='logo' src={logo} alt="Pub's Market"/>
                   <button className='navBtn1' onClick={() => setShowMarket(false)}>Home</button>
                   <button className='navBtn2' onClick={() => setShowMarket(true)}>Market</button>
                   <button className='disconnect' onClick={disconnect}>{name}</button>
