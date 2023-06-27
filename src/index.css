@@ -1,3 +1,11 @@
+:root {
+  --text: #030109;
+  --background: #e4e0fa;
+  --primary-button: #1a0f57;
+  --secondary-button: #d5cff7;
+  --accent: #20126d;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -31,21 +39,23 @@ code {
 }
 
 .header {
-  background-color: #282c34;
+  background-color: var(--background);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--secondary-button);
 }
 
 button {
+  background-color: var(--primary-button);
+  color: var(--secondary-button);
   padding: 0.5em 1em;
   font-size: 1em;
   cursor: pointer;
-  border: 1px solid white;
+  border: 1px solid var(--secondary-button);
   border-radius: 50em;
   transition: 0.3s;
   min-width: 12ch;
@@ -54,8 +64,9 @@ button {
 
 button:hover {
   transform: translateY(-4px);
-  background-color: #282c34;
-  color: aliceblue;
+  background-color: var(--secondary-button);
+  color: var(--text);
+  border: 1px solid #94949456;
 }
 
 button:active {
@@ -114,9 +125,10 @@ nav {
 }
 
 .images {
-  border: 1px solid white;
+  border: 1px solid var(--accent);
   border-radius: 0.5em;
   overflow: hidden;
+  transition: 0.3s;
 }
 
 .mint {
@@ -126,38 +138,46 @@ nav {
 .setPrice {
   padding: 10px;
   text-align: center;
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
+  background-color: var(--secondary-button);
+  color: var(--text);
+  border: 1px solid var(--accent);
   border-radius: 14px;
   margin: 1em;
 }
 
 .navBtn1, .navBtn2 {
   background-color: transparent;
-  border: none;
-  color: white;
+  border-top: none;
+  border-bottom: none;
+  color: var(--text);
   border-radius: 0px;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
+  border-left: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
   padding: 0;
   margin: 0;
   font-size: 18px;
   text-align: center;
+  transition: 0.3s;
+}
+
+.navBtn1:hover, .navBtn2:hover {
+  background-color: var(--primary-button);
+  color: var(--secondary-button);
+  border-radius: 50em;
 }
 
 .sort {
   padding: 0.5em 1em;
   margin: 1em;
   background-color: transparent;
-  color: white;
-  border: 1px solid white;
+  color: var(--text);
+  border: 1px solid var(--accent);
   border-radius: 7px;
 }
 
 .sortOpt {
   margin-block: 0.5em;
-  color: black;
+  color: var(--text);
 }
 
 .sellBtn, .buyBtn {
@@ -167,7 +187,6 @@ nav {
 
 .logo {
   width: 120px;
-
 }
 
 .loading {

@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import ABI from './ABI.json';
 import Notification from './Notification';
 import Market from './Market';
-import logo from './images/pubs-market-high-resolution-logo-white-on-transparent-background.png';
+import logo from './images/pubs-market-high-resolution-logo-black-on-transparent-background.png';
 
 function App() {
 
